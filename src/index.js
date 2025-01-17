@@ -1,8 +1,7 @@
 
 import express from 'express';
 import handlebars from 'express-handlebars';
-
-import homeController from './controllers/home-controller.js'
+import routes from './routes.js';
 
 const app = express();
 
@@ -14,9 +13,7 @@ app.set('views', './src/views');
 
 app.use('/static', express.static('src/public'));
 
-app.use(homeController);
-
-
+app.use(routes);
 
 app.get('*', (req, res) => {
     res.render('404')
