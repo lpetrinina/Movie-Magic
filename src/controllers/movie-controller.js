@@ -6,8 +6,9 @@ import movieServise from '../services/movie-servise.js';
 const movieControler = Router();
 
 movieControler.get('/search', (req, res) => {
+    const filter = req.query;
+    const movies = movieServise.getAll(filter);
 
-    const movies = movieServise.getAll();
 
     res.render('search', { movies });
 })
