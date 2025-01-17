@@ -12,14 +12,15 @@ movieControler.get('/create', (req, res) => {
 movieControler.post('/create', (req, res) => {
     const newMovie = req.body;
 
-    res.end();
+    movieServise.create(newMovie);
+
+    res.redirect('/');
 })
 
 movieControler.get('/:movieId/details', (req, res) => {
 
     const movieId = req.params.movieId;
     const movie = movieServise.findMovie(movieId);
-
 
     res.render('details', { movie });
 })
