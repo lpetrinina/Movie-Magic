@@ -1,10 +1,12 @@
 
-import express from 'express';
+import { Router } from 'express';
 
-const router = express.Router();
+import movies from '../movies.js';
+
+const router = Router();
 
 router.get('/', (req, res) => {
-    res.render('home');
+    res.render('home', { movies });
 });
 
 router.get('/about', (req, res) => {
