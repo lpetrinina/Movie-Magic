@@ -6,7 +6,10 @@ import movieServise from '../services/movie-servise.js';
 const movieControler = Router();
 
 movieControler.get('/search', (req, res) => {
-    res.render('search');
+
+    const movies = movieServise.getAll();
+
+    res.render('search', { movies });
 })
 
 movieControler.get('/create', (req, res) => {
