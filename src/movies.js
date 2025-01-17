@@ -8,7 +8,7 @@ export default [
         director: 'Jaume Collet-Serra',
         category: 'movie',
         year: '2021',
-        rating: '6.6',
+        rating: 6.6,
 
 
     },
@@ -21,7 +21,7 @@ export default [
         director: 'Rob Marshall',
         category: 'movie',
         year: '2023',
-        rating: '7.2',
+        rating: 7.2,
     },
     {
         id: '3m2633cf-564f-4e40-86c5-f64befd7a3ez3',
@@ -32,7 +32,7 @@ export default [
         director: 'Chris Columbus',
         category: 'movie',
         year: '1990',
-        rating: '7.7',
+        rating: 7.7,
     },
     {
         id: 'c847532d-303a-4645-97f1-1dd23edddc44',
@@ -42,7 +42,7 @@ export default [
         director: ' Frank Darabont',
         year: '1999',
         imageUrl: 'https://m.media-amazon.com/images/I/7166Kfzx+hL._AC_UF894,1000_QL80_.jpg',
-        rating: '8.6',
+        rating: 8.6,
         description: 'Paul Edgecomb, the head death row guard at a prison in 1930s Louisiana, meets an inmate, John Coffey, a black man who is accused of murdering two girls. His life changes drastically when he discovers that John has a special gift.'
     }
 ]
