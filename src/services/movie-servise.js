@@ -5,6 +5,10 @@ import movies from "../movies.js";
 
 export default {
 
+    getAll() {
+        return movies;
+    },
+
     findMovie(movieId) {
 
         // TODO: If movie is missing?
