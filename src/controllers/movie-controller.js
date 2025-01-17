@@ -15,9 +15,7 @@ movieControler.get('/:movieId/details', (req, res) => {
     const movie = movieServise.findMovie(movieId);
 
 
-
-
-    res.render('details');
+    res.render('details', { movie });
 })
 
 export default movieControler;
