@@ -5,6 +5,10 @@ import movieServise from '../services/movie-servise.js';
 
 const movieControler = Router();
 
+movieControler.get('/search', (req, res) => {
+    res.render('search');
+})
+
 movieControler.get('/create', (req, res) => {
     res.render('create');
 });
