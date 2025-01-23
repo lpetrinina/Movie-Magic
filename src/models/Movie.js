@@ -11,7 +11,7 @@ const movieSchema = new Schema({
     year: Number,
     rating: Number,
     description: String,
-    imageURL: String,
+    imageUrl: String,
 });
 
 // Create model

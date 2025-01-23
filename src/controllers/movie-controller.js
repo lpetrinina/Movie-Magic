@@ -25,10 +25,10 @@ movieControler.post('/create', (req, res) => {
     res.redirect('/');
 })
 
-movieControler.get('/:movieId/details', (req, res) => {
+movieControler.get('/:movieId/details', async (req, res) => {
 
     const movieId = req.params.movieId;
-    const movie = movieServise.findMovie(movieId);
+    const movie = await movieServise.getMovie(movieId);
 
     res.render('details', { movie });
 })
