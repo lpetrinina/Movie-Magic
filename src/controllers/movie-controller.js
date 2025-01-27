@@ -22,14 +22,18 @@ movieControler.post('/create', async (req, res) => {
     await movieServise.create(newMovie);
 
     res.redirect('/');
-})
+});
 
 movieControler.get('/:movieId/details', async (req, res) => {
 
     const movieId = req.params.movieId;
     const movie = await movieServise.getMovie(movieId);
 
-    res.render('details', { movie });
+    res.render('movie/details', { movie });
+});
+
+movieControler.get('/:movieId/attach-cast', (req, res) => {
+    res.render('movie/attach-cast')
 })
 
 export default movieControler;
