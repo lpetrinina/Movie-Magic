@@ -2,7 +2,6 @@
 import Movie from '../models/Movie.js';
 
 
-
 export default {
 
     getAll(filter = {}) {
@@ -27,9 +26,6 @@ export default {
     },
 
     getMovie(movieId) {
-
-        // TODO: If movie is missing?
-
         const result = Movie.findById(movieId);
 
         return result;
@@ -44,6 +40,17 @@ export default {
         });
 
         return result;
+    },
+
+    async attachCast(movieId, castId) {
+        //first way to attach
+        const movie = await Movie.findById(movieId);
+        movie.casts.push(castId);
+
+        await movie.save();
+
+        return movie;
+
     }
 }
 
