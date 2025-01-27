@@ -40,13 +40,13 @@ export default {
         // TODO: Add IDs
         const newId = uuid();
 
-        movies.push({
-            id: newId,
+        const result = Movie.create({
             ...movieData,
-            rating: Number(movieData.rating)
+            rating: Number(movieData.rating),
+            year: Number(movieData.year)
         });
 
-        return newId;
+        return result;
     }
 }
 
