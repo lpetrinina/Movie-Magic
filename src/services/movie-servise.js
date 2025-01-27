@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+
 import movies from "../movies.js";
 import Movie from '../models/Movie.js';
 
@@ -37,8 +37,6 @@ export default {
     },
 
     create(movieData) {
-        // TODO: Add IDs
-        const newId = uuid();
 
         const result = Movie.create({
             ...movieData,
