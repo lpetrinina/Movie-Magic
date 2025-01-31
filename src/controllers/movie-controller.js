@@ -90,7 +90,6 @@ movieControler.get('/:movieId/edit', async (req, res) => {
 
 });
 
-
 function getCategoriesViewData(category) {
     let categoriesMap = {
         'tv-show': 'TV Show',
@@ -108,5 +107,16 @@ function getCategoriesViewData(category) {
 
     return categories;
 };
+
+movieControler.post('/:movieId/edit', async (req, res) => {
+    const movieData = req.body;
+    const movieId = req.params.movieId;
+
+    // TODO: Check if user is creator
+
+    await movieServise.update(movieId, movieData);
+
+    res.redirect(`/movies/${movieId}/details`);
+});
 
 export default movieControler;
