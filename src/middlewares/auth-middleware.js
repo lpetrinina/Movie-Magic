@@ -11,7 +11,7 @@ export const authMiddleware = (req, res, next) => {
     // Check if user has token (if has NOT it is a guest)
     if (!token) {
         return next();
-    }
+    };
 
     try {
         // Validate and decode the token
@@ -22,9 +22,12 @@ export const authMiddleware = (req, res, next) => {
 
         next();
     } catch (error) {
-        // TODO: Invalid token
+        // If token is invalid(wrong or expired)
 
-    }
+        res.clearCookie('auth'); //delete cookie(reset session)
+        res.redirect('/auth/login');
+
+    };
 
 
 }
