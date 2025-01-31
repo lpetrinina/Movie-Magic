@@ -37,7 +37,7 @@ movieControler.get('/:movieId/details', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieServise.getMovie(movieId);
 
-    const isCreator = movie.creator && movie.creator.toString() === req.user?.id;
+    const isCreator = movie.creator && movie.creator.toString() === req.user?.id; // or movie.creator?.equals(req.user?.id)
 
     res.render('movie/details', { movie, isCreator });
 });
@@ -60,6 +60,21 @@ movieControler.post('/:movieId/attach-cast', async (req, res) => {
     await movieServise.attachCast(movieId, castId);
 
     res.redirect(`/movies/${movieId}/details`);
+});
+
+
+movieControler.get('/:movieId/delete', async (req, res) => {
+    const movieId = req.params.movieId;
+
+    const movie = await movieServise.getMovie(movieId);
+    // Check if user is creator
+    if (!movie.creator?.equals(req.user?.id)) {
+        return res.redirect('/404');
+    }
+
+    await movieServise.delete(movieId);
+    res.redirect('/');
+
 });
 
 export default movieControler;
