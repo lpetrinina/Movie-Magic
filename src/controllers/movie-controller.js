@@ -13,17 +13,22 @@ movieControler.get('/search', async (req, res) => {
     res.render('search', { movies, filter });
 })
 
+
 movieControler.get('/create', (req, res) => {
     res.render('create');
 });
 
 movieControler.post('/create', async (req, res) => {
     const newMovie = req.body;
+    const creatorId = req.user?.id;
+    console.log(creatorId);
 
-    await movieServise.create(newMovie);
+
+    await movieServise.create(newMovie, creatorId);
 
     res.redirect('/');
 });
+
 
 movieControler.get('/:movieId/details', async (req, res) => {
 
@@ -32,6 +37,7 @@ movieControler.get('/:movieId/details', async (req, res) => {
 
     res.render('movie/details', { movie });
 });
+
 
 movieControler.get('/:movieId/attach-cast', async (req, res) => {
     const movieId = req.params.movieId;
