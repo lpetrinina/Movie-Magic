@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import bcrupt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const SECRET = 'frJwpXsbepe37iSkoMwGLDrosHcsOLHD64ndyKqe9nqA5PJhd02YucJ4pJke';
+const SECRET = process.env.JWT_SECRET || 'BASICSECRET';
 
 export default {
 
@@ -21,7 +21,7 @@ export default {
             throw new Error('Invalid email or password!');
         }
 
-        // Chech if the password is correct 
+        // Check if the password is correct 
         const isValid = await bcrupt.compare(password, user.password);
 
         if (!isValid) {
