@@ -1,7 +1,10 @@
 import { Router } from "express";
+
 import castServise from "../services/cast-servise.js";
+import { isAuth } from "../middlewares/auth-middleware.js";
 
 const castController = Router();
+castController.use(isAuth);
 
 castController.get('/create', (req, res) => {
     res.render('cast/create');

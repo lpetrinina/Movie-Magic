@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import movieServise from '../services/movie-servise.js';
 import castServise from '../services/cast-servise.js';
+import { isAuth } from '../middlewares/auth-middleware.js';
 
 
 const movieControler = Router();
@@ -15,11 +16,11 @@ movieControler.get('/search', async (req, res) => {
 
 
 
-movieControler.get('/create', (req, res) => {
+movieControler.get('/create', isAuth, (req, res) => {
     res.render('create');
 });
 
-movieControler.post('/create', async (req, res) => {
+movieControler.post('/create', isAuth, async (req, res) => {
     const newMovie = req.body;
     const creatorId = req.user?.id;
     console.log(creatorId);
@@ -53,7 +54,7 @@ movieControler.get('/:movieId/attach-cast', async (req, res) => {
     res.render('movie/attach-cast', { movie, casts })
 });
 
-movieControler.post('/:movieId/attach-cast', async (req, res) => {
+movieControler.post('/:movieId/attach-cast', isAuth, async (req, res) => {
 
     const castId = req.body.cast;
     const movieId = req.params.movieId;
@@ -63,10 +64,10 @@ movieControler.post('/:movieId/attach-cast', async (req, res) => {
 });
 
 
-movieControler.get('/:movieId/delete', async (req, res) => {
+movieControler.get('/:movieId/delete', isAuth, async (req, res) => {
     const movieId = req.params.movieId;
-
     const movie = await movieServise.getMovie(movieId);
+
     // Check if user is creator
     if (!movie.creator?.equals(req.user?.id)) {
         return res.redirect('/404');
@@ -78,7 +79,7 @@ movieControler.get('/:movieId/delete', async (req, res) => {
 });
 
 
-movieControler.get('/:movieId/edit', async (req, res) => {
+movieControler.get('/:movieId/edit', isAuth, async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieServise.getMovie(movieId);
 
@@ -108,7 +109,7 @@ function getCategoriesViewData(category) {
     return categories;
 };
 
-movieControler.post('/:movieId/edit', async (req, res) => {
+movieControler.post('/:movieId/edit', isAuth, async (req, res) => {
     const movieData = req.body;
     const movieId = req.params.movieId;
 

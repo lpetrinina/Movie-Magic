@@ -30,5 +30,14 @@ export const authMiddleware = (req, res, next) => {
 
     };
 
+};
 
+export const isAuth = (req, res, next) => {
+
+    // Check id user has token(logged user)
+    if (!req.user) {
+        res.redirect('/auth/login');
+    }
+
+    next();
 }
