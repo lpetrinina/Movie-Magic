@@ -15,7 +15,7 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Password is required!'],
         match: [/[a-zA-z-0-9]+/, 'Password should be alphanumeric and digits only!'],
-        minLength: [6, 'Password should be at least 6 characters! long'],
+        minLength: [6, 'Password should be at least 6 characters long!'],
         trim: true //sanitizer
     },
 });
