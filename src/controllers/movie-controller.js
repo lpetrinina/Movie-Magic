@@ -120,7 +120,16 @@ movieControler.post('/:movieId/edit', isAuth, async (req, res) => {
 
     // TODO: Check if user is creator
 
-    await movieServise.update(movieId, movieData);
+    try {
+        await movieServise.update(movieId, movieData);
+
+    } catch (err) {
+        const categories = getCategoriesViewData(movieData.category);
+        const error = getErrorMessage(err);
+
+        return res.render('movie/edit', error, categories);
+
+    }
 
     res.redirect(`/movies/${movieId}/details`);
 });
