@@ -19,7 +19,7 @@ castController.post('/create', async (req, res) => {
 
     } catch (err) {
         const error = getErrorMessage(err);
-        return res.render('cast/create', { error });
+        return res.render('cast/create', { error, cast: castData });
     }
 
     res.redirect('/');
