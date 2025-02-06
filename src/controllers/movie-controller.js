@@ -3,10 +3,12 @@ import { Router } from 'express';
 import movieServise from '../services/movie-servise.js';
 import castServise from '../services/cast-servise.js';
 import { isAuth } from '../middlewares/auth-middleware.js';
+import { getErrorMessage } from '../utils/error-util.js';
 
 
 const movieControler = Router();
 
+// ---------------- SEARCH PAGE ----------------------------
 movieControler.get('/search', async (req, res) => {
     const filter = req.query;
     const movies = await movieServise.getAll(filter);
@@ -15,7 +17,7 @@ movieControler.get('/search', async (req, res) => {
 })
 
 
-
+// ---------------- CREATE MOVIE ----------------------------
 movieControler.get('/create', isAuth, (req, res) => {
     res.render('create');
 });
@@ -23,16 +25,21 @@ movieControler.get('/create', isAuth, (req, res) => {
 movieControler.post('/create', isAuth, async (req, res) => {
     const newMovie = req.body;
     const creatorId = req.user?.id;
-    console.log(creatorId);
 
+    try {
+        await movieServise.create(newMovie, creatorId);
 
-    await movieServise.create(newMovie, creatorId);
+    } catch (err) {
+        const error = getErrorMessage(err);
+        return res.render('create', { error, movie: newMovie });
 
-    res.redirect('/');
+    }
+
+    return res.redirect('/');
 });
 
 
-
+// ---------------- DETAILS PAGE ----------------------------
 movieControler.get('/:movieId/details', async (req, res) => {
 
     const movieId = req.params.movieId;
@@ -44,7 +51,7 @@ movieControler.get('/:movieId/details', async (req, res) => {
 });
 
 
-
+// ---------------- CREATE CAST ----------------------------
 movieControler.get('/:movieId/attach-cast', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieServise.getMovie(movieId);
@@ -63,7 +70,7 @@ movieControler.post('/:movieId/attach-cast', isAuth, async (req, res) => {
     res.redirect(`/movies/${movieId}/details`);
 });
 
-
+// ---------------- DELETE MOVIE ----------------------------
 movieControler.get('/:movieId/delete', isAuth, async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieServise.getMovie(movieId);
@@ -78,14 +85,12 @@ movieControler.get('/:movieId/delete', isAuth, async (req, res) => {
 
 });
 
-
+// ---------------- EDIT MOVIE ----------------------------
 movieControler.get('/:movieId/edit', isAuth, async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieServise.getMovie(movieId);
 
     const categories = getCategoriesViewData(movie.category);
-    console.log(categories);
-
 
     res.render('movie/edit', { movie, categories });
 
